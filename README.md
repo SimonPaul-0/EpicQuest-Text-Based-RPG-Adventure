@@ -2,14 +2,14 @@
 
 Welcome to the Text RPG Adventure! This simple text-based RPG game is implemented in Python.
 ## Table of Contents
-### 1. Overview
-### 2. Classes
+1. Overview
+2. Classes
 - Character
 - Enemy
 - Game
-### 3. How to Play
-### 4. Contributing
-### 5. License
+3. How to Play
+4. Contributing
+5. License
 
 ## Overview
 
