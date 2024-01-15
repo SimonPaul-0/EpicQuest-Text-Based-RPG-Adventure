@@ -1,5 +1,3 @@
-Certainly! Here's a simple README file for your code:
-
 ---
 
 # Text RPG Adventure
@@ -52,6 +50,8 @@ If you'd like to contribute to this project, feel free to fork the repository, m
 
 This project is licensed under the [MIT License](LICENSE). Feel free to use and modify the code according to the terms of the license.
 
+## Author
+[Simon Paul]
+
 ---
 
-Feel free to customize the README based on your project's specific details and requirements.
