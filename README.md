@@ -35,7 +35,7 @@ The `Game` class manages the overall flow of the game. It handles starting the g
 
 ## How to Play
 
-1. Run the Python script (`main.py`).
+1. Run the Python script (`file.py`).
 2. Enter your character's name when prompted.
 3. Navigate the game menu by choosing options:
     - **Battle an enemy:** Engage in combat with a randomly generated enemy.
