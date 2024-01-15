@@ -249,7 +249,7 @@ class Game:
 
             if self.player.health <= 0:
                 print(f"You were defeated by the {enemy.name}. Game Over!")
-                exit()
+                return  # Use 'return' instead of 'exit()'
 
         print(f"{self.player.name}'s remaining health: {self.player.health}\n")
 
