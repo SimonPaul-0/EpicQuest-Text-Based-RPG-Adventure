@@ -1,5 +1,3 @@
-Certainly! Here's a README template for your RPG adventure game:
-
 ---
 
 # Epic RPG Adventure
