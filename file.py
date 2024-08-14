@@ -16,7 +16,7 @@ class Character:
 
     def level_up(self):
         self.level += 1
-        self.experience -= self.EXPERIENCE_FOR_LEVEL_UP * (self.level - 1)  # Deduct experience for current level
+        self.experience -= self.EXPERIENCE_FOR_LEVEL_UP * (self.level - 1)  # Adjust experience correctly
         self.skill_points += 1
         print(f"{self.name} leveled up to level {self.level}!")
 
@@ -33,10 +33,10 @@ class Character:
                     self.health += random.randint(5, self.MAX_HEALTH_INCREASE)
                     print(f"Health increased! Current Health: {self.health}")
                 elif stat_choice == 2:
-                    self.attack += random.randint(1, self.ATTACK_DEFENSE_INCREASE)
+                    self.attack += random.randint(1, self.ATTACK_DEFENSE_INCREASE)  # Ensure attack increment is not zero
                     print(f"Attack increased! Current Attack: {self.attack}")
                 elif stat_choice == 3:
-                    self.defense += random.randint(1, self.ATTACK_DEFENSE_INCREASE)
+                    self.defense += random.randint(1, self.ATTACK_DEFENSE_INCREASE)  # Ensure defense increment is not zero
                     print(f"Defense increased! Current Defense: {self.defense}")
                 else:
                     print("Invalid choice. Please choose again.")
@@ -128,7 +128,7 @@ class Game:
             print("Invalid choice. Please enter a valid option.")
 
     def generate_random_attribute(self, base_value, increase_range):
-        return base_value + random.randint(1, increase_range)
+        return base_value + random.randint(1, increase_range)  # Ensures minimum increment of 1
 
     def generate_random_enemy(self):
         enemy_name = random.choice(["Goblin", "Orc", "Dragon", "Witch"])
