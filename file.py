@@ -16,8 +16,8 @@ class Character:
 
     def level_up(self):
         self.level += 1
-        self.experience = 0  # Reset experience to 0 after leveling up
-        self.skill_points += 1  # Gain a skill point on level up
+        self.experience -= self.EXPERIENCE_FOR_LEVEL_UP * (self.level - 1)  # Deduct experience for current level
+        self.skill_points += 1
         print(f"{self.name} leveled up to level {self.level}!")
 
         while self.skill_points > 0:
@@ -27,23 +27,24 @@ class Character:
             print("2. Increase Attack")
             print("3. Increase Defense")
 
-            stat_choice = int(input("Enter your choice (1-3): "))
-
-            if stat_choice not in [1, 2, 3]:
-                print("Invalid choice. Please choose again.")
+            try:
+                stat_choice = int(input("Enter your choice (1-3): "))
+                if stat_choice == 1:
+                    self.health += random.randint(5, self.MAX_HEALTH_INCREASE)
+                    print(f"Health increased! Current Health: {self.health}")
+                elif stat_choice == 2:
+                    self.attack += random.randint(1, self.ATTACK_DEFENSE_INCREASE)
+                    print(f"Attack increased! Current Attack: {self.attack}")
+                elif stat_choice == 3:
+                    self.defense += random.randint(1, self.ATTACK_DEFENSE_INCREASE)
+                    print(f"Defense increased! Current Defense: {self.defense}")
+                else:
+                    print("Invalid choice. Please choose again.")
+                    continue
+                self.skill_points -= 1
+            except ValueError:
+                print("Invalid input. Please enter a number between 1 and 3.")
                 continue
-
-            if stat_choice == 1:
-                self.health += random.randint(10, self.MAX_HEALTH_INCREASE)
-                print(f"Health increased! Current Health: {self.health}")
-            elif stat_choice == 2:
-                self.attack += random.randint(10, self.ATTACK_DEFENSE_INCREASE)
-                print(f"Attack increased! Current Attack: {self.attack}")
-            elif stat_choice == 3:
-                self.defense += random.randint(10, self.ATTACK_DEFENSE_INCREASE)
-                print(f"Defense increased! Current Defense: {self.defense}")
-
-            self.skill_points -= 1
 
     def attack_enemy(self, enemy):
         damage = max(0, self.attack - enemy.defense)
@@ -121,17 +122,13 @@ class Game:
         elif choice == '2':
             print(self.player.show_stats())
         elif choice == '3':
-            restart = input("Do you want to restart? (yes/no): ").lower()
-            if restart == 'yes':
-                self.start()
-            else:
-                print("Thanks for playing! See you next time.")
-                exit()
+            print("Thanks for playing! See you next time.")
+            exit()
         else:
             print("Invalid choice. Please enter a valid option.")
 
     def generate_random_attribute(self, base_value, increase_range):
-        return base_value + random.randint(10, increase_range)
+        return base_value + random.randint(1, increase_range)
 
     def generate_random_enemy(self):
         enemy_name = random.choice(["Goblin", "Orc", "Dragon", "Witch"])
@@ -154,13 +151,13 @@ class Game:
 
     def handle_player_turn(self, enemy):
         self.player.attack_enemy(enemy)
-        if isinstance(enemy, Boss) and random.choice([True, False, False, False]):  # Decreased boss appearance probability
+        if isinstance(enemy, Boss) and random.choice([True, False, False, False]):
             enemy.perform_special_attack(self.player)
         else:
             enemy.attack_player(self.player)
 
     def battle_enemy(self):
-        if random.choice([True, False, False]):  # Decreased boss appearance probability
+        if random.choice([True, False, False]):
             enemy = self.generate_random_enemy()
             print(f"A wild {enemy.name} appears!\n")
         else:
@@ -172,7 +169,7 @@ class Game:
 
             if enemy.health <= 0:
                 print(f"You defeated the {enemy.name}!")
-                self.player.gain_experience(random.randint(30, 80))  # Increased experience gain
+                self.player.gain_experience(random.randint(30, 80))
                 self.player.health = 100  # Restore player's health after battle
                 while self.player.experience >= self.player.EXPERIENCE_FOR_LEVEL_UP * self.player.level:
                     self.player.level_up()
